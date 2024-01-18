@@ -1,0 +1,39 @@
+<div id="comment-<%= comment._id %>" class="comment">
+    <div class="user-avatar">
+        <img src="/upload/<%= comment.user.avatar ? comment.user.avatar : 'default-avatar.jpg' %>" alt="User Avatar" />
+    </div>
+
+    <div class="comment-content">
+        <p><span class="comment-username"><%= comment.user.name %></span>: <%= comment.commentContent %></p>
+        <p class="likes">Likes: <span id="comment-num-likes-<%= comment._id %>"><%= comment.likes.length %></span></p>
+    </div>
+
+    <div class="delete-like-btn">
+        <% if(locals.user){ %>
+            <% if(comment.user.id == locals.user.id){ %>
+                <a class="delete-comment-button" href="/comments/delete/<%= comment._id %>"><span>✖️</span></a>
+            <% } else { %>
+                <% var commentLikedByCurrentUser = false; %>
+                <!-- Loop through the likes and check if the current user has already liked the comment -->
+                <% for(let like of comment.likes) { %>
+                    <% if(like.user == locals.user.id) { %>
+                        <% commentLikedByCurrentUser = true; %>
+                    <% } %>
+                <% } %>
+                <!-- Apply fa-solid/fa-regular classes based on whether the comment is liked by the current user -->
+                <% if (commentLikedByCurrentUser) { %>
+                    
+                    <a href="/likes/toggle/?id=<%= comment._id %>&type=Comment" class="comment-like-toggle" data-commentid="<%= comment._id %>">
+                        <i class="fa-solid fa-heart icon"></i>
+                    </a>
+                <% } else { %>
+                    <a href="/likes/toggle/?id=<%= comment._id %>&type=Comment" class="comment-like-toggle" data-commentid="<%= comment._id %>">
+                        <i class="fa-regular fa-heart icon"></i>
+                    </a>
+                <% } %>
+            <% } %>
+        <% } else { %>
+            <i class="fa-regular fa-heart icon disabled" title="Please login to like"></i>
+        <% } %>
+    </div>
+</div>

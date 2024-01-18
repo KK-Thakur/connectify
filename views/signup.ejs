@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> <%= title %> </title>
+    <link rel="stylesheet" href="/css/sign_in_up.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <!--connectify logo-->
+            <img src="/images/c-letter-logo.png" alt="Connectify logo"class="img1" />
+            <p class="header">Create account to see more</p>
+
+            <form action="/users/register" method="POST">
+                <input name="email" type="email" placeholder="Email" class="detail" required/><br />
+                <!-- <input name="username" type="text" placeholder="UserName" class="detail" required/><br /> -->
+                <input name="name" type="text" placeholder="Name" class="detail" required/><br />
+                <input name="password" type="password" placeholder="Password" class="detail" required/>
+                <input name="confirm_password" type="password" placeholder="Confirm Password" class="detail" required/>
+                <button class="btn int" type="submit">Register Account</button>
+            </form>
+            
+            <p class="or">OR</p>
+            <button class="btn ggl">
+                <i class="fab fa-google" style="color: rgb(11, 241, 22); padding-right: 10px"></i><a href="/users/auth/google">Continue
+                    with Google</a>
+            </button>
+
+            <footer>
+                <p>
+                    By continuing, you agree to Connectify's
+                    <b>Terms of Service, Privacy policy.</b>
+                </p>
+                <hr />
+                <p>Already a member? <a href="/users/login"><b>Log in</b></a></p>
+            </footer>
+        </div>
+    </div>
+    <!-- <div class="upbtn">Go to Sign in</div> -->
+</body>
+
+</html>

@@ -1,0 +1,198 @@
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="/css/user_profile.css">
+
+
+<main class="bg-gray-100 bg-opacity-25">
+
+    <div class="lg:w-8/12 lg:mx-auto mb-8">
+
+        <header class="flex flex-wrap items-center p-4 pt-5 md:py-10 bg-white relative">
+
+            <div class="md:w-3/12 md:ml-16">
+                <!-- profile image -->
+                <img class="w-20 h-20 md:w-40 md:h-40 object-cover rounded-full
+                    border-2 border-pink-600 p-1"
+                    src="/upload/<%= (profile_user.avatar)? profile_user.avatar : 'default-avatar.jpg' %>"
+                    alt="profile">
+            </div>
+
+            <!-- profile meta -->
+            <div class="w-8/12 md:w-7/12 ml-4">
+                <div class="md:flex md:flex-wrap md:items-center mb-4">
+                    <h2 class="text-3xl inline-block font-light md:mr-2 mb-2 sm:mb-0">
+                        <%= profile_user.name %> 
+                    </h2>
+
+                    <!-- badge -->
+                    <span class="inline-block fas fa-certificate fa-lg text-blue-500 
+                                 relative mr-6 text-xl transform -translate-y-2" aria-hidden="true">
+                        <i class="fas fa-check text-white text-xs absolute inset-x-0
+                                 ml-1 mt-1"></i>
+                    </span>
+
+                    <!-- friend button -->
+                    <% if(locals.user){%>
+                        <!-- <a href="/users/logout" class="lgt">Logout</a> -->
+                        <a href="/users/logout" class="absolute top-1 right-1"><button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 border border-gray-400 rounded shadow">
+                            Logout
+                          </button></a>
+                        <% if(profile_user.id == locals.user.id){%>
+                            <a href="/users/profile/update/1" class="bg-blue-500 px-2 py-1 
+                                text-white font-semibold text-sm rounded block text-center 
+                                sm:inline-block block">Edit Profile</a>
+                        <% }else{%>
+                            <% if(friendship){%>
+                                <a href="/friendships/toggle/<%= profile_user.id %>" class="toggleFriend bg-blue-500 px-2 py-1 
+                                    text-white font-semibold text-sm rounded block text-center 
+                                    sm:inline-block block">Remove Friend</a>
+                                <!-- <a href="/friendships/toggle/<%= profile_user.id %>" class="lgt toggleFriend removeFriend">Remove Friend</a> -->
+                            <%}else{%>
+                                <a href="/friendships/toggle/<%= profile_user.id %>" class=" toggleFriend bg-blue-500 px-2 py-1 
+                                    text-white font-semibold text-sm rounded block text-center 
+                                    sm:inline-block block">Add Friend</a>
+                                <!-- <a href="/friendships/toggle/<%= profile_user.id %>" class="lgt toggleFriend addFriend">Add Friend</a> -->
+                            <%} %>
+                        <%}%>
+                    <%} %>
+                </div>
+
+                <!-- post, following, followers list for medium screens -->
+                <ul class="hidden md:flex space-x-8 mb-4">
+                    <li>
+                        <span class="font-semibold"><%= profile_user.posts.length %> </span>
+                        posts
+                    </li>
+
+                    <li>
+                        <span class="font-semibold"><%= profile_user.friendships.length %></span>
+                        friends
+                    </li>
+                    <li>
+                        <span class="font-semibold">
+                            <%= new Date(profile_user.createdAt).toLocaleString('en-US', {
+                                month: 'short',
+                                year: 'numeric'
+                            }) %>
+                        </span>
+                        (Joined)
+                    </li>
+                </ul>
+
+                <!-- user meta form medium screens -->
+                <div class="hidden md:block">
+                    <h1 class="font-semibold">Mr Travlerrr...</h1>
+                    <span>Travel, Nature and Music</span>
+                    <p><%= (profile_user.tagline) ? (profile_user.tagline) : 'No tagline provide..'%></p>
+                </div>
+
+            </div>
+
+            <!-- user meta form small screens -->
+            <div class="md:hidden text-sm my-2">
+                <h1 class="font-semibold">Mr Travlerrr...</h1>
+                <span>Travel, Nature and Music</span>
+                <p><%= (profile_user.tagline) ? (profile_user.tagline) : 'No tagline provide..'%></p>
+            </div>
+
+        </header>
+
+
+
+        <div class="px-px md:px-3">
+
+            <!-- user following for mobile only -->
+            <ul class="flex md:hidden justify-around space-x-8 border-t 
+                  text-center p-2 text-gray-600 leading-snug text-sm">
+                <li>
+                    <span class="font-semibold text-gray-800 block"><%= profile_user.posts.length %></span>
+                    posts
+                </li>
+
+                <li>
+                    <span class="font-semibold text-gray-800 block"><%= profile_user.friendships.length %></span>
+                    friends
+                </li>
+                <li>
+                    <span class="font-semibold text-gray-800 block">
+                        <%= new Date(profile_user.createdAt).toLocaleString('en-US', {
+                            month: 'short',
+                            year: 'numeric'
+                        }) %>
+                    </span>
+                    Joined
+                </li>
+            </ul>
+
+            <!-- insta freatures -->
+            <ul class="flex items-center justify-around md:justify-center space-x-12  
+                      uppercase tracking-widest font-semibold text-xs text-gray-600
+                      border-t">
+                <!-- posts tab is active -->
+                <li class="md:border-t md:border-gray-700 md:-mt-px md:text-gray-700">
+                    <a class="inline-block p-3" href="#">
+                        <i class="fas fa-th-large text-xl md:text-xs"></i>
+                        <span class="hidden md:inline">post</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="inline-block p-3" href="/posts/createpost">    
+                        <i class="fa-solid fa-plus border border-gray-500
+                               px-1 pt-1 rounded text-xl md:text-xs"></i>
+                        <span class="hidden md:inline">create</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="inline-block p-3" href="#">
+                        
+                        <i class="fas fa-user-friends border border-gray-500
+                               px-1 pt-1 rounded text-xl md:text-xs"></i>
+                        <span class="hidden md:inline">Friends</span>
+                    </a>
+                </li>
+            </ul>
+
+
+            <!-- posts -->
+            <!-- flexbox grid -->
+            <div class="flex flex-wrap mx-px md:-mx-3">
+
+                <% profile_user.posts.map((post)=>{ %>
+                    <div class="w-1/3 p-px md:px-3">
+                        <a href="#">
+                            <article class="post bg-gray-100 text-white relative pb-full md:mb-6">
+                                <!-- post image-->
+                                <img class="w-full h-full absolute left-0 top-0 object-cover"
+                                    src="/upload/<%= (post.image)? post.image : 'default-avatar.jpg' %>"
+                                    alt="image">
+    
+                                <i class="fas fa-square absolute right-0 top-0 m-1"></i>
+                                <!-- overlay-->
+                                <div class="overlay bg-gray-800 bg-opacity-25 w-full h-full absolute 
+                                      left-0 top-0 hidden">
+                                    <div class="flex justify-center items-center 
+                                          space-x-4 h-full">
+                                        <span class="p-2">
+                                            <i class="fas fa-heart"></i>
+                                            <%= post.likes.length %>
+                                        </span>
+    
+                                        <span class="p-2">
+                                            <i class="fas fa-comment"></i>
+                                            <%= post.comments.length %>
+                                        </span>
+                                    </div>
+                                </div>
+    
+                            </article>
+                        </a>
+                    </div>
+                <%}) %>
+                <!-- column -->
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="/javascripts/toggle_friendship.js"></script>

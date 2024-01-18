@@ -1,0 +1,193 @@
+<div id="post-<%= post._id %>" class="post">
+    <div class="info">
+        <a href="/users/profile/<%= post.user._id %>">
+            <div class="user">
+                <div class="profile-pic">
+                    <img src="/upload/<%= (post.user.avatar)? post.user.avatar : 'default-avatar.jpg' %>" alt="">
+                </div>
+                <p class="username"><%=post.user.name %></p>
+            </div>
+        </a>
+        
+        
+        <div class="dropdown">
+            <% if(locals.user){%>
+                <i class="fa-solid fa-ellipsis options dropbtn" onclick="showDropDown('<%= post._id %>')"></i>
+            
+                <div id="myDropdown-<%= post._id %>" class="dropdown-content">
+                    <% if( (locals.user) && (post.user.id == locals.user.id)){%>
+                        <a class="delete-post-button" href="/posts/delete/<%= post._id %>" style="color : red;"> Delete Post</a>
+                    <%}%>
+                    <a href="/">Unfollow</a>
+                    <a href="/users/profile/<%= post.user._id %>">Profile</a>
+                </div>
+            <%} %>
+        </div>
+
+    </div>
+
+    <img src="/upload/<%= (post.image)? post.image : 'default-avatar.jpg' %>" class="post-image" alt="">
+
+    <div class="post-content">
+        <div class="reaction-wrapper">
+            <% if(locals.user){%>
+                <% var likedByCurrentUser = false; %>
+
+                <!-- Loop through the likes and if current user has alraedy liked the post if yes make liken button coloured -->
+                <% for(let like of post.likes){ %>
+                    <% if(like.user == locals.user.id){ %>
+                        <% likedByCurrentUser = true; %>
+                    <% } %>
+                <% } %>
+                    
+                <!-- If likedByCurrentUser flag is true, apply 'fa-solid' class to btn -->
+                <% if (likedByCurrentUser) { %>
+                    <a href="/likes/toggle/?id=<%= post._id %>&type=Post" class="post-like-toggle" data-postid="<%= post._id %>">
+                        <i class="fa-solid fa-heart icon icon-<%= post._id %>"></i>
+                    </a>
+                <% } else { %>
+                    <a href="/likes/toggle/?id=<%= post._id %>&type=Post" class="post-like-toggle" data-postid="<%= post._id %>">
+                        <i class="fa-regular fa-heart icon icon-<%= post._id %>"></i>
+                    </a>
+                <% } %>
+                
+            <%}else{%>
+                <i class="fa-regular fa-heart icon disabled" title="Please login to like"></i>
+            <%}%>
+            <i class="fa-regular fa-comment icon" onclick="toggleCommentSection('<%= post._id %>')"></i>
+            <!-- <i class="fa-regular fa-paper-plane icon"></i> -->
+            <p class="post-time"><%= new Date(post.createdAt).toLocaleString('en-US', {
+                month: 'short',
+                day: '2-digit',
+                year: 'numeric'
+            }) %>
+            </p>
+        </div>
+        <p class="likes">Likes: <span id="post-num-likes-<%= post._id %>"><%= post.likes.length %></span></p>
+
+        <!-- <p class="likes">Likes: <span class="post-num-likes"><%= post.likes.length %></span></p> -->
+        <p class="description"><span><%=post.user.name %> :</span><%=post.content %> </p>
+    </div>
+
+    <div class="comment-wrapper">
+        <div class="comment-input-section">
+            <form action="/comments/create/<%= post._id %>" method="POST" class="post-<%= post._id %>-comments-form" role="form">
+                <i class="fa-regular fa-comment icon"></i>
+                <% if(locals.user){%>
+                    <input name="commentContent" type="text" class="comment-box" placeholder="Add a comment..." required >
+                    <button class="comment-btn">post</button>
+                <%}else{%>
+                    <input name="commentContent disabled" type="text" class="comment-box" placeholder="Login to comment..." disabled title="Please login to like">
+                    <button class="comment-btn disabled" disabled title="Please login to make comment">post</button>
+                <%}%>
+            </form>
+
+        </div>  
+    </div>
+
+
+    <!-- comment btn click pop -->
+    <div id="comments-overlay-<%= post._id %>" class="comments-overlay hidden">
+        <div class="close-btn" onclick="closeCommentSection('<%= post._id %>')">
+            <p>X</p>
+        </div>
+
+        <div class="comments-post-container">
+            <div class="post-container post">
+                <div class="info">
+                    <a href="/users/profile/<%= post.user._id %>">
+                        <div class="user">
+                            <div class="profile-pic">
+                                <img src="/upload/<%= (post.user.avatar)? post.user.avatar : 'default-avatar.jpg' %>" alt="">
+                            </div>
+                            <p class="username"><%=post.user.name %></p>
+                        </div>
+                    </a>
+                    
+                    
+                    <div class="dropdown">
+                        <% if(locals.user){%>
+                            <i class="fa-solid fa-ellipsis options dropbtn" onclick="showDropDown('comment-<%= post._id %>')"></i>
+                        
+                            <div id="myDropdown-comment-<%= post._id %>" class="dropdown-content">
+                                <% if( (locals.user) && (post.user.id == locals.user.id)){%>
+                                    <a href="/posts/delete/<%=post._id%>" style="color : red;" >Delete Post</a>
+                                <%}%>
+                                <a href="/">Unfollow</a>
+                                <a href="/users/profile/<%= post.user._id %>">Profile</a>
+                            </div>
+                        <%} %>
+                    </div>
+                </div>
+
+                <div class="img-div">
+                    <img src="/upload/<%= (post.image)? post.image : 'default-avatar.jpg' %>" class="post-image" alt="">
+                </div>
+                <div class="post-content">
+                    <div class="reaction-wrapper">
+                        
+                        <!-- below code for like btn -->
+                        <% if(locals.user){%>
+
+                            <!-- If likedByCurrentUser flag is true(already checked), apply 'fa-solid' class to btn -->
+                            <% if (likedByCurrentUser) { %>
+                                <a href="/likes/toggle/?id=<%= post._id %>&type=Post" class="post-like-toggle" data-postid="<%= post._id %>">
+                                    <i class="fa-solid fa-heart icon icon-<%= post._id %>"></i>
+                                </a>
+                                
+                            <% }else{%>
+                                <a href="/likes/toggle/?id=<%= post._id %>&type=Post" class="post-like-toggle" data-postid="<%= post._id %>">
+                                    <i class="fa-regular fa-heart icon icon-<%= post._id %>"></i>
+                                </a>
+                            <%}%>
+                        <%}else{%>
+                            <i class="fa-regular fa-heart icon disabled" title="Please login to like"></i>
+                        <%}%>
+                        
+                        <p class="likes">Likes: <span id="post-num-likes2-<%= post._id %>"><%= post.likes.length %></span></p>
+
+                        <p class="post-time"><%= new Date(post.createdAt).toLocaleString('en-US', {
+                            month: 'short',
+                            day: '2-digit',
+                            year: 'numeric'
+                        }) %>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comments-container">
+                <div class="upper-section">
+                    <h3>Comments...</h3>
+                </div>
+
+                <div id="post-comments-<%= post._id %>" class="comment-content-section">
+                    <% if((post.comments).length === 0){%>
+                        <p id="no-comment" style="margin: auto;">No Comment Yet..</p>
+                    <%}%>
+
+                    <% for(comment of post.comments){ %>
+                        <%- include('_comment') -%>
+                    <% }%>
+                </div>
+
+                <div class="comment-input-section">
+                    <% if(locals.user){%>
+                        <form action="/comments/create/<%= post._id %>" method="POST" class="post-<%= post._id %>-comments-form" role="form">
+                            <i class="fa-regular fa-comment icon"></i>
+                            <input name="commentContent" type="text" class="comment-box" placeholder="Add a comment..." <%= !(locals.user) ? 'disabled' : '' %> required >
+                            <button class="comment-btn" <%= !(locals.user) ? 'disabled' : '' %> >post</button>
+                        </form>
+                    <%}else{%>
+                        <h3>Login to Comment or Like</h3>
+                    <%}%>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/javascripts/_post.js"></script>
+
+

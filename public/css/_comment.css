@@ -1,0 +1,35 @@
+/* Style for the comment container */
+.comment {
+  margin-bottom: 6px;
+  padding: 8px 16px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: row; }
+  .comment .user-avatar img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px; }
+  .comment .comment-content {
+    word-wrap: break-word;
+    width: calc(100% - 75px); }
+    .comment .comment-content .comment-username {
+      font-weight: bold;
+      margin: 0; }
+  .comment .delete-like-btn {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px; }
+    .comment .delete-like-btn .icon {
+      color: black; }
+    .comment .delete-like-btn .delete-comment-button {
+      cursor: pointer;
+      color: black;
+      /* Change the color as needed */
+      font-size: 16px; }
+    .comment .delete-like-btn .like-comment-button {
+      cursor: pointer;
+      color: black;
+      /* Change the color as needed */
+      font-size: 16px; }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connectify Login</title>
+    <link rel="stylesheet" href="/css/sign_in_up.css"">
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <!--connecify logo-->
+            <img src="/images/c-letter-logo.png" alt="Connectify logo" class="img1" />
+            <p class="header">Log in to see more</p>
+
+            <!-- TOdo:- show error if giving wrong username or password -->
+            <% if(flash.error && flash.error.length > 0){%>
+                <p style="color: red;"> <%= flash.error %> </p>
+            <% } %>
+
+            <form action="/users/create-session" method="post" autocomplete="on">
+                <!-- <input name="username" type="text" placeholder="UserName" class="detail" required/><br /> -->
+                <input name="email" type="email" placeholder="Email" class="detail" required/><br />
+                <input name="password" type="password" placeholder="Password" class="detail" required/>
+                <a href="/forgot-password" class="fgt">Forgot your password?</a>
+                <button class="btn int" style="margin-top: 10px;" type="submit">Login My Account</button>
+            </form>
+
+            <p class="or">OR</p>
+            <button class="btn ggl">
+                <i class="fab fa-google" style="color: rgb(11, 241, 22); padding-right: 10px"></i><a href="/users/auth/google">Continue
+                    with Google</a>
+            </button>
+
+            <footer>
+                <p>
+                    By continuing, you agree to Connectify's
+                    <b>Terms of Service, Privacy policy.</b>
+                </p>
+                <hr />
+                <p>Not on Connectify yet? <a href="/users/signup"><b>Sign up</b></a></p>
+            </footer>
+        </div>
+    </div>
+    <!-- <div class="upbtn">Go to Sign in</div> -->
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+.site-header {
+  background-color: #3e65da;
+  color: #fff;
+  padding: 12px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
+.logo img {
+  height: 40px;
+  /* Adjust as needed */ }
+
+.main-nav {
+  height: 30px; }
+
+.main-nav ul {
+  padding-left: 1.6rem;
+  list-style-type: none;
+  display: flex;
+  gap: 17px;
+  font-size: 20px; }
+
+.main-nav ul li {
+  display: inline; }
+
+.main-nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding-bottom: 4px;
+  position: relative;
+  border-bottom: 2px solid transparent;
+  /* Initially transparent border */ }
+
+/* Transition for border-bottom */
+.main-nav ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #fff;
+  transition: width 0.5s ease;
+  /* Transition for width */ }
+
+/* Hover effect */
+.main-nav ul li a:hover::after {
+  width: 100%;
+  /* Width increases on hover */ }

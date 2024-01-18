@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="/css/_chat_box.css">
+
+
+<!-- CHANGE :: Creat the code for chat box -->
+<% if (locals.user){ %>
+	<div id="user-chat-box">
+		<ul id="chat-messages-list">
+			<!-- <li class="other-message">
+				<span>Other Message</span>
+			</li>
+			<li class="self-message">
+				<span>
+					Self Message
+				</span>
+				
+			</li> -->
+            <% for(let chat of all_chats){%>
+                <%if(chat.user.id == locals.user.id){%>
+                    <li class="self-message">
+                        <img src="/upload/<%=chat.user.avatar ? chat.user.avatar : 'default-avatar.jpg'%>" class="sender-img">
+                        <span><%= chat.message %></span>
+                        <sub><%= chat.user.name %></sub>
+                    </li>
+                <%}else{%>
+                    <li class="other-message">
+                        <img src="/upload/<%=chat.user.avatar ? chat.user.avatar : 'default-avatar.jpg'%>" class="sender-img">
+                        <span> <%= chat.message %> </span>
+                        <sub> <%= chat.user.name%> </sub>
+                    </li>
+                <%}%>    
+            <%}%>
+		</ul>
+		
+		<form action="" id="chat-message-input-container">
+            <input id="chat-message-input" placeholder="Type message here" required>
+		    <button type="submit" id="send-chat-msg-btn">Send</button>
+        </form>
+		
+
+	</div>
+<% } %>

@@ -1,0 +1,137 @@
+<link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css/_comment.css">
+
+<body>
+    <section class="main">
+        <div class="wrapper">
+            <div class="left-col">
+
+                <%if(locals.user){%>
+                    <div class="friendsCard-container">
+                        <div class="friends-wrapper-tag">
+                            <p>F</p>
+                            <p>R</p>
+                            <p>I</p>
+                            <p>E</p>
+                            <p>N</p>
+                            <p>D</p>
+                            <p>S</p>
+                        </div>
+                        
+                        <div class="friendsCard-wrapper">
+                            <%if(current_user_friends.length){%>
+                                <% for(friend of current_user_friends){%>  
+                                    <div class="friends-card" id="friends-card-<%= friend._id %>">
+                                        <a href="/users/profile/<%= friend._id %>">
+                                            <div class="profile-pic">
+                                                <img src="/upload/<%= (friend.avatar)? friend.avatar : 'default-avatar.jpg' %>" alt="">
+                                            </div>
+                                            <p class="username"><%=friend.name %></p>
+                                        </a>
+                                    </div>     
+                                <%} %>
+                            <%}%> 
+                        </div>  
+                    </div>
+                <%}%>
+
+                <!-- post lists -->
+                <div id="posts-list-container">
+                    <% for(post of posts){ %>
+                        <%- include('_post') -%>
+                    <%} %>
+                </div>
+            </div>
+
+
+
+            <!-- right col -->
+            <div class="right-col">
+                <!-- user profile -->
+                <%if(locals.user){%>
+                    <a href="/users/profile/<%= user._id %>">
+                    <div class="profile-card">
+                        <div class="profile-pic">
+                            <img src="/upload/<%= (locals.user.avatar)? locals.user.avatar : 'default-avatar.jpg' %>"
+                            alt="Profile Picture">
+                        </div>
+                        <div>
+                            <p class="username"><%= locals.user.name %></p>
+                            <p class="sub-text"><%= (locals.user.tagline) ? (locals.user.tagline) : 'No tagline provide..'%></p>
+                        </div>
+                        <!-- <button class="action-btn">switch</button> -->
+                    </div>
+                    </a>
+
+                    <% if(current_user_non_friends.length > 0){%>
+                        <p class="suggestion-text">Suggestions for you</p>
+                        <% for(nonFriend of current_user_non_friends){%>
+                            <div class="profile-card">
+                                <a href="/users/profile/<%= nonFriend._id %>">
+                                    <div class="profile-pic">
+                                        <img src="/upload/<%= (nonFriend.avatar)? nonFriend.avatar : 'default-avatar.jpg' %>" alt="">
+                                    </div>
+                                </a>
+                                    <div>
+                                        <p class="username"><%= nonFriend.name%></p>
+                                        <!-- <p class="sub-text">followed by user</p> -->
+                                        <a href="/friendships/toggle/<%= nonFriend._id %>" class="action-btn toggleFriend addFriend">Add Friend</a>
+                                        <!-- <button class="action-btn">follow</button> -->
+                                    </div>
+                                <!-- <button class="action-btn">follow</button> -->
+                            </div>
+                        <%}%>
+                    <%}%>
+                <%}else{%>
+                    <p class="suggestion-text">All Users</p>
+                    <!-- note we cant user here because local.user can also be written as user so it will overide the value of local.user -->
+                    <% for(u of all_users){%>
+                        <div class="profile-card">
+                            <a href="/users/profile/<%= u._id %>">
+                                <div class="profile-pic">
+                                    <img src="/upload/<%= (u.avatar)? u.avatar : 'default-avatar.jpg' %>" alt="">
+                                </div>
+                            </a>
+                                <div>
+                                    <p class="username"><%= u.name%></p>
+                                    <!-- <p class="sub-text">followed by user</p> -->
+                                    <button class="action-btn disabled">friend</button>
+                                </div>
+                            <!-- <button class="action-btn">follow</button> -->
+                        </div>
+                    <%}%>
+                <%}%>
+            </div>
+        </div>
+    </section>
+
+    <%- include('_chat_box') -%>
+
+</body>
+
+
+<script src="/javascripts/home_posts_comments.js"></script>
+<script src="/javascripts/home_posts.js"></script>
+
+<!-- run script(js) file for toggle like -->
+<script src="/javascripts/toggle_likes.js"></script>
+<!-- run script(js) file for toggle like -->
+<script src="/javascripts/toggle_friendship.js"></script>
+
+<!-- run script(js) file for chat engine socket.io -->
+<!-- include font-end library given by socket.io(it will interact with backend socket.io library) -->
+<!-- and also include your own js file for handling user input and interaction with front-end socket.io -->
+<script src="/socket.io/socket.io.js"></script> 
+<script src="/javascripts/chat_socket_frontEnd.js"></script>
+<% if(locals.user){%>
+    <script>
+        var chatmsgUser = <%- JSON.stringify(locals.user) %>; 
+        
+        // Scroll to the bottom of the chat box
+        let chatBox = $('#chat-messages-list');
+        chatBox.scrollTop(chatBox[0].scrollHeight);
+
+        socketConnectionHandler(chatmsgUser);
+    </script>
+<%}%>
+

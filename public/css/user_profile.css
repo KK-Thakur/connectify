@@ -1,0 +1,16 @@
+.pb-full {
+  padding-bottom: 100%; }
+
+header {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+
+/* hide search icon on search focus */
+/*
+.search-bar:focus+.fa-search {
+    display: none;
+}
+*/
+@media screen and (min-width: 768px) {
+  .post:hover .overlay {
+    display: block; } }
