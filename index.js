@@ -35,6 +35,7 @@ const customMware= require('./config/middleware');
 
 // set up the chat server to be used with Socket.io for chat engine note:- it run over node.js http module not express
 const http = require('http');
+const path = require('path');
 const server = http.createServer(app);
 const chatSockets=require('./config/chat_sockets').chatSockets(server);   //call the chatSockets fn by sending chatServer, so that it(chat_sockets.js file of config) can use this chat server
 
@@ -62,7 +63,8 @@ app.use(cookieParser());
 
 //set up the view engine
 app.set("view engine", 'ejs');
-app.set("views", './views');  //not necessary
+// app.set("views", './views');  //not necessary
+app.set("views", path.join(__dirname, "views"));
 //setup static folder
 app.use(express.static('./public'));
 
