@@ -3,17 +3,26 @@
 
 <!-- CHANGE :: Creat the code for chat box -->
 <% if (locals.user){ %>
-	<div id="user-chat-box">
+    <input type="checkbox" id="check">
+    <div class="window">
+      <label class="top-bar" for="check">
+        <div class="kapsayici">
+          <div class="profile">
+            <img class="pp" src="https://i.pinimg.com/564x/58/ac/2e/58ac2e722527319666603da8a7570f53.jpg">
+            <div class="online"></div>
+            <a>Messages</a>
+          </div>
+          <!---->
+          <div class="icons">
+            <p class="symbol">❮</p>
+          </div>
+        </div>
+      </label>
+
+        <!-- new -->
+        <div id="user-chat-box">
 		<ul id="chat-messages-list">
-			<!-- <li class="other-message">
-				<span>Other Message</span>
-			</li>
-			<li class="self-message">
-				<span>
-					Self Message
-				</span>
-				
-			</li> -->
+
             <% for(let chat of all_chats){%>
                 <%if(chat.user.id == locals.user.id){%>
                     <li class="self-message">
@@ -37,5 +46,7 @@
         </form>
 		
 
-	</div>
+	    </div>
+      
+    </div>
 <% } %>

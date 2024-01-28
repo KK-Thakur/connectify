@@ -1,13 +1,14 @@
 const passport = require('passport');
 const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const crypto = require('crypto');  // to generate random passwords
+require("dotenv").config();
 
 const User = require('../models/user');
 
 
 const opts = {
-    clientID: "817139613167-3plqr8mfeoo6bjlq1mka6ksk6jq18tjs.apps.googleusercontent.com",
-    clientSecret: "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",
+    clientID: process.env.PASSPORT_GOOGLE_AUTH2_CLIENT_ID,
+    clientSecret: process.env.PASSPORT_GOOGLE_AUTH2_SECRET_KEY,
     callbackURL: "http://localhost:8000/users/auth/google/callback",
 }
 

@@ -1,62 +1,138 @@
-#user-chat-box {
+.window {
+  background: #fff;
+  width: 350px;
+  height: 450px;
+  border-radius: 8px 8px 0px 0px;
+  box-shadow: 0px 0px 5px 1px #3333;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-top: 16.5vh;
+  overflow: hidden;
   position: fixed;
-  bottom: 10px;
-  right: 10px;
-  border: 1px dashed grey;
-  height: 350px;
-  width: 300px;
-  background: white;
-  padding: 5px;
-  box-shadow: 1px 1px 1px 1px lightgrey;
-  /* WebKit browsers (Chrome, Safari) */
-  /* Firefox */
-  /* IE and Edge */ }
-  #user-chat-box #chat-messages-list {
-    list-style: none;
-    padding: 10px;
-    height: 84%;
-    background-color: white;
-    overflow: auto; }
-    #user-chat-box #chat-messages-list .other-message {
-      text-align: left;
-      padding: 5px; }
-      #user-chat-box #chat-messages-list .other-message span {
-        display: inline-block;
-        padding: 5px 6px;
-        background-color: #ffa0a0; }
-    #user-chat-box #chat-messages-list .self-message {
-      text-align: right;
-      padding: 5px; }
-      #user-chat-box #chat-messages-list .self-message span {
-        display: inline-block;
-        padding: 5px 6px;
-        background-color: #a0dcff; }
-    #user-chat-box #chat-messages-list li sub {
-      display: block;
-      margin: 4px 0px 10px 0px; }
-    #user-chat-box #chat-messages-list li .sender-img {
-      height: 30px;
-      width: 30px;
-      border-radius: 50%;
-      margin: 0px 4px 4px 0px; }
-  #user-chat-box #chat-message-input-container {
-    height: 15%;
+  right: 5px;
+  bottom: 0px;
+  transition: all 0.2s;
+  text-align: center;
+  background-image: url("https://beaconforce.com/wp-content/uploads/2019/02/Social-Interaction.png");
+  background-size: 100px;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-position: 50% 99px; }
+  .window #user-chat-box {
+    height: calc(100% - 45px);
     width: 100%;
-    display: flex;
-    flex-direction: row; }
-    #user-chat-box #chat-message-input-container #chat-message-input {
-      height: 80%;
-      width: 70%; }
-    #user-chat-box #chat-message-input-container #send-chat-msg-btn {
-      height: 80%;
-      width: 30%;
-      font-size: 25px;
-      color: white;
-      border: none;
-      background: #58d258; }
-  #user-chat-box #chat-messages-list::-webkit-scrollbar {
-    width: 0; }
-  #user-chat-box #chat-messages-list {
-    scrollbar-width: none; }
-  #user-chat-box #chat-messages-list {
-    -ms-overflow-style: none; }
+    background: white;
+    padding: 5px;
+    box-shadow: 1px 1px 1px 1px lightgrey;
+    /* WebKit browsers (Chrome, Safari) */
+    /* Firefox */
+    /* IE and Edge */ }
+    .window #user-chat-box #chat-messages-list {
+      list-style: none;
+      padding: 10px;
+      height: 84%;
+      background-color: white;
+      overflow: auto; }
+      .window #user-chat-box #chat-messages-list .other-message {
+        text-align: left;
+        padding: 5px; }
+        .window #user-chat-box #chat-messages-list .other-message span {
+          display: inline-block;
+          padding: 5px 6px;
+          background-color: #ffa0a0; }
+      .window #user-chat-box #chat-messages-list .self-message {
+        text-align: right;
+        padding: 5px; }
+        .window #user-chat-box #chat-messages-list .self-message span {
+          display: inline-block;
+          padding: 5px 6px;
+          background-color: #a0dcff; }
+      .window #user-chat-box #chat-messages-list li sub {
+        display: block;
+        margin: 4px 0px 10px 0px; }
+      .window #user-chat-box #chat-messages-list li .sender-img {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        margin: 0px 4px 4px 0px; }
+    .window #user-chat-box #chat-message-input-container {
+      height: 15%;
+      width: 100%;
+      display: flex;
+      flex-direction: row; }
+      .window #user-chat-box #chat-message-input-container #chat-message-input {
+        height: 80%;
+        width: 70%; }
+      .window #user-chat-box #chat-message-input-container #send-chat-msg-btn {
+        height: 80%;
+        width: 30%;
+        font-size: 25px;
+        color: white;
+        border: none;
+        background: #58d258; }
+    .window #user-chat-box #chat-messages-list::-webkit-scrollbar {
+      width: 0; }
+    .window #user-chat-box #chat-messages-list {
+      scrollbar-width: none; }
+    .window #user-chat-box #chat-messages-list {
+      -ms-overflow-style: none; }
+
+#check {
+  display: none; }
+
+#check:checked + .window {
+  bottom: -405px; }
+
+.top-bar {
+  width: 100%; }
+
+.kapsayici {
+  max-width: 100%;
+  height: 45px;
+  transition: all 0.3s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 5px; }
+
+.kapsayici:hover {
+  background: #f5f7fa;
+  cursor: pointer; }
+
+.profile {
+  display: flex;
+  align-items: center;
+  user-select: none; }
+
+.profile a {
+  font-size: 14px;
+  margin-left: 7px; }
+
+.online {
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  border: 2px solid #fff;
+  left: 30px;
+  top: 27px;
+  border-radius: 50%;
+  background: green; }
+
+.pp {
+  margin-left: 5px;
+  width: 30px;
+  border-radius: 50%; }
+
+.icons p {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 15px;
+  margin-bottom: 0;
+  transition-property: background;
+  border-radius: 50%;
+  transition-duration: 0.3s;
+  transform: rotate(-90deg); }
+
+@media (max-width: 450px) {
+  .window {
+    width: 95%; } }

@@ -373,6 +373,7 @@ a {
       .comments-overlay .comments-post-container .post-container .info {
         height: 50px; }
       .comments-overlay .comments-post-container .post-container .img-div {
+        height: calc(100% - 100px);
         flex-grow: 1;
         flex-shrink: 1; }
         .comments-overlay .comments-post-container .post-container .img-div .post-image {
