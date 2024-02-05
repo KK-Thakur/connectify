@@ -39,9 +39,8 @@ const path = require('path');
 const server = http.createServer(app);
 const chatSockets=require('./config/chat_sockets').chatSockets(server);   //call the chatSockets fn by sending chatServer, so that it(chat_sockets.js file of config) can use this chat server
 
-
+/*
 //setting up sass file for css
-
 app.use(sassMiddleware({
     src: './public/scss' ,
     dest: './public/css' ,
@@ -49,7 +48,7 @@ app.use(sassMiddleware({
     outputStyle: 'extended',
     prefix:  '/css'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
 }))
-
+*/
 
 // setup layout
 app.use(expressLayouts);
