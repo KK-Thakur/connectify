@@ -16,7 +16,7 @@ module.exports.createSession = async function (req, res) {
         return res.status(200).json({ 
             message: 'Sign In successful, here is your token, please keep it safe!',
             data:{
-                token:jwt.sign(user.toJSON(),process.env.PASSPORT_JWT_SECRET_KEY || "anysecretkey0123", {expiresIn:'15m'})
+                token:jwt.sign(user.toJSON(), "anysecretkey0123", {expiresIn:'15m'})
             }
         });
         //note:- done takes two argument first as err and second as data
