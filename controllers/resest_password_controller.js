@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 require("dotenv").config();
 
-const jwtSecret=process.env.RESET_PASSWORD_JWT_SECRET_KEY  //Todo
+const jwtSecret=process.env.RESET_PASSWORD_JWT_SECRET_KEY || "anysecretkeyandhashit0123" //Todo
 
 
 // when user hit the given link

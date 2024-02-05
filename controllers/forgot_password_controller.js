@@ -22,7 +22,7 @@ module.exports.sendForgotLink= async(req, res)=>{
     }
     //if user exists 
     //create a uniquie link using secret
-    const jwtSecret=process.env.RESET_PASSWORD_JWT_SECRET_KEY  //Todo
+    const jwtSecret=process.env.RESET_PASSWORD_JWT_SECRET_KEY || "anysecretkeyandhashit0123" //Todo
     const secret = jwtSecret + user.password;
     const payload={
         email:user.email,

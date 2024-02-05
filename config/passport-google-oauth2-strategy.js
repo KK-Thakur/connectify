@@ -7,8 +7,8 @@ const User = require('../models/user');
 
 
 const opts = {
-    clientID: process.env.PASSPORT_GOOGLE_AUTH2_CLIENT_ID,
-    clientSecret: process.env.PASSPORT_GOOGLE_AUTH2_SECRET_KEY,
+    clientID: process.env.PASSPORT_GOOGLE_AUTH2_CLIENT_ID || "817139613167-3plqr8mfeoo6bjlq1mka6ksk6jq18tjs.apps.googleusercontent.com",
+    clientSecret: process.env.PASSPORT_GOOGLE_AUTH2_SECRET_KEY || "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",
     callbackURL: "http://localhost:8000/users/auth/google/callback",
 }
 

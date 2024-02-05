@@ -1,7 +1,7 @@
 const express = require('express');
 require("dotenv").config();
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 80;
 const app = express();
 
 
@@ -74,7 +74,7 @@ app.use(express.static('./public'));
 app.use(session({
     name: 'connectify',
     //TODO : change secret before deplyoying
-    secret: process.env.EXPRESS_SESSION_SECRET,
+    secret: process.env.EXPRESS_SESSION_SECRET || "anysecretkey23455",
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: (1000 * 60 * 100) },

@@ -6,7 +6,7 @@ require("dotenv").config();
 
 const opts={
     jwtFromRequest : ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey : process.env.PASSPORT_JWT_SECRET_KEY   //todo change before deploying project
+    secretOrKey : process.env.PASSPORT_JWT_SECRET_KEY || "anysecretkey0123"   //todo change before deploying project
 }
 
 passport.use(new JwtStrategy(opts, async function(jwt_payload, done){
